@@ -238,8 +238,8 @@ state ready # The composer accepts text.
 state pending # The shell shows a skeleton, not a spinner alone.
 state done final # The reply renders in the chosen direction.
 state failed # Decision 3 picks what the user sees.
-| ready | pending |
-| failed | done |
+| ready | pending | done |
+| . | failed | . |
 ready -send-> pending : Send
 pending -ok-> done : Valid
 pending -error-> failed : Invalid

@@ -1,0 +1,331 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="An interactive design plan for the Generative UI demo. Four design decisions, each shown as structurally different live mockups. Pick a direction and the screen changes.">
+<title>Generative UI Design Plan</title>
+<link rel="stylesheet" href="runtime/htmlplan.css">
+<script src="runtime/htmlplan.js" defer></script>
+<style>
+:root{--col:840px}
+header h1{font-size:clamp(38px,7.2vw,80px)!important;line-height:.96!important;letter-spacing:-.032em!important;font-weight:800!important;max-width:14ch}
+header .guide{font-size:14px;color:var(--ink-2);margin:18px 0 24px;padding:14px 16px;border-left:3px solid var(--accent);background:var(--card)}
+footer{margin-top:36px!important;font-size:13px;color:var(--ink-2)}footer p{margin-bottom:8px}
+.nw-btn,.claim-toggle{min-height:44px}doc-code{max-width:100%}
+doc-ask label{cursor:pointer}
+.switch-note{font:12.5px/1.5 ui-monospace,"SF Mono",Menlo,monospace;color:var(--ink-2);margin:0 0 10px;letter-spacing:.02em}
+.switch-note b{color:var(--accent);font-weight:600}
+@media(max-width:600px){body{padding:24px 14px 120px}.claim-body{padding-left:8px!important}doc-ask{padding:16px 12px!important}doc-ask label{min-height:44px}doc-ask label .sug{white-space:normal}h1{font-size:38px}.nw-bar{max-width:calc(100vw - 20px)}.nw-sheet textarea{font-size:14px}footer a{overflow-wrap:anywhere}}
+</style>
+<style data-mock-shared>
+/* ---------- direction A: Feed (light editorial) ---------- */
+.fd{font:15px/1.55 Georgia,"Times New Roman",serif;color:#221d15;background:#f7f2e9;border:1px solid #e4dccb;border-radius:14px;overflow:hidden}
+.fd-top{display:flex;justify-content:space-between;align-items:baseline;padding:14px 20px;border-bottom:1px solid #e4dccb}
+.fd-brand{font:600 11px/1 ui-monospace,Menlo,monospace;letter-spacing:.22em;text-transform:uppercase}
+.fd-issue{font:11px/1 ui-monospace,Menlo,monospace;color:#8b8271;letter-spacing:.1em}
+.fd-body{padding:22px 20px 8px}
+.fd-user{font:13px/1.5 ui-monospace,Menlo,monospace;color:#8b8271;text-align:right;margin-bottom:14px}
+.fd-user b{color:#221d15;font-weight:600}
+.fd-note{font-size:21px;line-height:1.3;margin-bottom:18px}
+.fd-card{border-top:2px solid #221d15;border-bottom:1px solid #d8cfbc;padding:16px 0 14px;margin-bottom:14px}
+.fd-spec{font:10.5px/1 ui-monospace,Menlo,monospace;letter-spacing:.18em;text-transform:uppercase;color:#8b8271;margin-bottom:14px}
+.fd-route{display:flex;align-items:baseline;justify-content:space-between;font-size:44px;font-weight:700;letter-spacing:-.02em}
+.fd-route .fd-arrow{font:16px/1 ui-monospace,Menlo,monospace;color:#b0532a;letter-spacing:0}
+.fd-times{display:flex;justify-content:space-between;font:12px/1 ui-monospace,Menlo,monospace;color:#8b8271;margin:6px 0 14px}
+.fd-meta{display:flex;gap:14px;font-size:13.5px;font-style:italic;color:#5c5545;margin-bottom:14px}
+.fd-price{display:flex;justify-content:space-between;align-items:baseline}
+.fd-price em{font:600 10.5px/1 ui-monospace,Menlo,monospace;letter-spacing:.18em;text-transform:uppercase;color:#b0532a;font-style:normal}
+.fd-price b{font-size:30px;letter-spacing:-.02em}
+.fd-composer{display:flex;justify-content:space-between;align-items:center;padding:14px 20px;border-top:1px solid #e4dccb;font:13px/1 ui-monospace,Menlo,monospace;color:#8b8271}
+.fd-composer u{color:#221d15;text-decoration:none;border-bottom:2px solid #b0532a;padding-bottom:2px}
+/* ---------- direction B: Workbench (dark split) ---------- */
+.wb{font:14px/1.5 ui-monospace,"SF Mono",Menlo,monospace;color:#dfe7d8;background:#0e120e;border:1px solid #263026;border-radius:14px;overflow:hidden}
+.wb-top{display:flex;justify-content:space-between;padding:12px 16px;border-bottom:1px solid #263026;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:#7d8a76}
+.wb-top b{color:#d8f26e;font-weight:600}
+.wb-panes{display:flex;min-height:270px}
+.wb-chat{flex:1.15;padding:16px;border-right:1px solid #263026}
+.wb-tag{font-size:10px;letter-spacing:.16em;color:#f2b26e;text-transform:uppercase;margin-bottom:10px}
+.wb-h{font:700 17px/1.25 system-ui,sans-serif;color:#f0f4ea;margin-bottom:4px}
+.wb-sub{font-size:11px;color:#7d8a76;margin-bottom:14px}
+.wb-stats{display:flex;gap:8px;margin-bottom:14px}
+.wb-stat{flex:1;border:1px solid #2c382c;border-radius:8px;padding:8px}
+.wb-stat b{display:block;font:700 18px/1.1 system-ui,sans-serif;color:#d8f26e}
+.wb-stat span{font-size:9.5px;color:#7d8a76;letter-spacing:.06em}
+.wb-bar{margin-bottom:8px}
+.wb-bar span{display:block;font-size:10.5px;color:#aebca4;margin-bottom:3px}
+.wb-bar i{display:block;height:5px;border-radius:3px;background:#2c382c;position:relative}
+.wb-bar i::after{content:"";position:absolute;left:0;top:0;bottom:0;width:var(--p);background:#d8f26e;border-radius:3px}
+.wb-json{flex:1;padding:16px;background:#0a0d0a}
+.wb-json .wb-tag{color:#d8f26e}
+.wb-json pre{font:10.5px/1.65 ui-monospace,Menlo,monospace;color:#9fb392;white-space:pre-wrap;margin:0}
+.wb-json .k{color:#d8f26e}
+/* ---------- direction C: Stage (full-bleed) ---------- */
+.sg{font:14px/1.5 system-ui,sans-serif;color:#f3ede2;background:#131108;border:1px solid #2c2716;border-radius:14px;overflow:hidden;position:relative}
+.sg-crumb{padding:14px 20px;font:10.5px/1 ui-monospace,Menlo,monospace;letter-spacing:.2em;text-transform:uppercase;color:#8a7f5c;display:flex;justify-content:space-between}
+.sg-hero{padding:26px 20px 6px;font-size:104px;font-weight:800;letter-spacing:-.045em;line-height:.9;color:#f3ede2}
+.sg-hero i{font-style:normal;color:#f2b26e}
+.sg-sub{padding:0 20px;font:12px/1 ui-monospace,Menlo,monospace;letter-spacing:.22em;text-transform:uppercase;color:#8a7f5c;margin-bottom:22px}
+.sg-week{display:flex;gap:7px;padding:0 20px;margin-bottom:26px}
+.sg-week i{flex:1;height:34px;border-radius:6px;background:#231f11;display:flex;align-items:flex-end;justify-content:center;font:9px/1 ui-monospace,Menlo,monospace;color:#6d6442;padding-bottom:5px;font-style:normal}
+.sg-week i.on{background:#f2b26e;color:#131108}
+.sg-rail{display:flex;gap:10px;align-items:center;padding:12px 14px;border-top:1px solid #2c2716;background:#0d0b05}
+.sg-rail .sg-in{flex:1;border:1px solid #3a3319;border-radius:99px;padding:9px 16px;font:12.5px/1 ui-monospace,Menlo,monospace;color:#8a7f5c}
+.sg-rail .sg-go{font:600 12px/1 ui-monospace,Menlo,monospace;color:#131108;background:#f2b26e;border-radius:99px;padding:10px 18px}
+/* ---------- provenance minis ---------- */
+.pm{font:14px/1.5 system-ui,sans-serif;color:#17251f;background:#fff;border:1px solid #dadfdc;border-radius:12px;overflow:hidden}
+.pm-hd{padding:10px 14px;border-bottom:1px solid #e6e9e7;font:12px/1 ui-monospace,Menlo,monospace;color:#67716a;letter-spacing:.06em}
+.pm-bd{padding:14px}
+.pm-card{border:1px solid #dfe4e0;border-radius:10px;padding:12px 14px}
+.pm-route{display:flex;justify-content:space-between;font-weight:700;font-size:19px}
+.pm-meta{display:flex;gap:10px;font-size:12px;color:#67716a;margin-top:4px}
+.pm-foot{display:flex;gap:8px;margin-top:12px}
+.pm-pill{font:11.5px/1 ui-monospace,Menlo,monospace;padding:5px 10px;border-radius:99px;border:1px solid #4d7a3a;color:#3d6b2a;background:#eef6e8}
+.pm-pill.g{border-color:#b07625;color:#8a5a14;background:#faf1e2}
+.pm-spec{font:11px/1.7 ui-monospace,Menlo,monospace;color:#17251f;border-bottom:1px solid #dfe4e0;padding:8px 14px;display:flex;justify-content:space-between}
+.pm-spec b{color:#3d6b2a}
+.pm-spec .g b{color:#8a5a14}
+.pm-edge{border-left:3px solid #4d7a3a}
+.pm-edge.g{border:1.5px dashed #b07625;border-left-width:1.5px}
+.pm-legend{display:flex;gap:14px;margin-top:12px;font:11px/1.5 ui-monospace,Menlo,monospace;color:#67716a}
+.pm-legend i{font-style:normal}
+/* ---------- machine screens ---------- */
+.ms{font:13.5px/1.5 system-ui,sans-serif;color:#e8ece9;background:#151a17;border:1px solid #2c3833;border-radius:12px;overflow:hidden}
+.ms-hd{padding:10px 14px;border-bottom:1px solid #263029;font:600 11px/1 ui-monospace,Menlo,monospace;letter-spacing:.14em;text-transform:uppercase;color:#8fa294}
+.ms-bd{padding:16px 14px}
+.ms-in{display:flex;justify-content:space-between;border:1px solid #33413a;border-radius:99px;padding:10px 16px;font:12.5px/1 ui-monospace,Menlo,monospace;color:#7d8f83}
+.ms-in b{color:#d8f26e;font-weight:600}
+.ms-skel{border:1px solid #2c3833;border-radius:10px;padding:12px}
+.ms-skel i{display:block;height:10px;border-radius:5px;background:linear-gradient(90deg,#223028,#33453a,#223028);margin-bottom:9px}
+.ms-card{border:1px solid #33413a;border-radius:10px;padding:12px 14px;background:#10150f}
+.ms-route{display:flex;justify-content:space-between;font-weight:700;font-size:18px;color:#eef3ea}
+.ms-meta{display:flex;gap:10px;font-size:11.5px;color:#8fa294;margin-top:4px;font-family:ui-monospace,Menlo,monospace}
+.ms-note{border:1px solid #6b4a1f;background:#241a0c;color:#f2b26e;border-radius:10px;padding:12px;font-size:12.5px;margin-bottom:10px}
+.ms-btn{display:inline-block;font:600 12px/1 ui-monospace,Menlo,monospace;color:#10150f;background:#d8f26e;border-radius:7px;padding:9px 14px}
+.ms-btn.ghost{background:none;border:1px solid #33413a;color:#8fa294}
+.ms-list{font-size:12.5px;color:#c4d0c2;margin:0 0 10px;padding-left:16px}
+.ms-slot{border:1.5px dashed #6b4a1f;border-radius:8px;padding:10px;font:11px/1.5 ui-monospace,Menlo,monospace;color:#f2b26e;margin-top:8px}
+/* ---------- steering minis ---------- */
+.sw{font:13.5px/1.5 system-ui,sans-serif;color:#e8ece9;background:#151a17;border:1px solid #2c3833;border-radius:12px;overflow:hidden}
+.sw-bd{padding:14px}
+.sw-chip{display:inline-block;font:12px/1 ui-monospace,Menlo,monospace;color:#8fa294;border:1px solid #33413a;border-radius:99px;padding:8px 13px;margin:0 6px 8px 0}
+.sw-chip.hot{color:#d8f26e;border-color:#4a5c2a}
+.sw-acts{display:flex;gap:8px;margin-top:12px}
+.sw-act{flex:1;text-align:center;font:11.5px/1.4 ui-monospace,Menlo,monospace;color:#dfe7d8;border:1px solid #33413a;border-radius:9px;padding:9px 6px}
+.sw-act b{display:block;color:#d8f26e;font-weight:600}
+.sw-json{font:11px/1.6 ui-monospace,Menlo,monospace;color:#9fb392;background:#0c100c;border:1px solid #263029;border-radius:9px;padding:10px 12px;white-space:pre-wrap;margin-bottom:10px}
+.sw-json .ed{color:#f2b26e;border-bottom:1px dashed #f2b26e}
+</style>
+<body>
+<header>
+<h1>Designing the Reply Surface in Generative UI</h1>
+<doc-changes new="2" changed="2"></doc-changes>
+<div class="guide"><p lang="he" dir="rtl" style="margin:0 0 8px">זו תוכנית עיצוב אינטראקטיבית, לא קוד. כל החלטה מציגה שני־שלושה כיוונים שונים מבחינה מבנית, מצוירים כמסכים אמיתיים. בוחרים אופציה והמסך מתחלף מול העיניים. בסוף לוחצים Respond ומעתיקים תדריך עיצוב מסודר.</p><p style="margin:0">A design plan, not code. Each decision shows two or three structurally different directions as live mockups. Pick an option and the screen switches in place. Press <b>Respond</b> to copy a structured design brief. Answers stay in this browser; nothing is sent.</p></div>
+<details class="thread"><summary>Why · source and scope</summary>
+<doc-quote via="doc" from="generative-ui-demo README">If a library component fits, I fill its schema. If not, I build the UI on the fly.</doc-quote>
+<doc-quote via="github" from="types.ts, the demo branch">Mode 2: when no component fits, the model emits a UINode tree from the primitive vocabulary.</doc-quote>
+<p>The demo works. Its shell does not have a design yet. This plan fixes the design decisions first. The proposed directions are options, not an approved build.</p>
+</details>
+</header>
+<main><doc-plan>
+
+<doc-claim id="surface"><p>The user reads each answer as a designed surface, not a chat bubble.</p>
+<p class="switch-note">Pick an option in <b>decision 1</b> below. This mockup switches to that direction.</p>
+<div data-if="direction=feed"><doc-mock frame="none" w="430" label="Direction A · Feed" caption="A quiet reading column. The card is the article."><template><div class="fd">
+<div class="fd-top"><span class="fd-brand">Generative UI</span><span class="fd-issue">REPLY · 12</span></div>
+<div class="fd-body">
+<div class="fd-user">you · <b>Find me a flight to Bangkok</b></div>
+<div class="fd-note">The fastest direct option leaves tonight.</div>
+<div class="fd-card" data-ref="fd-card">
+<div class="fd-spec">schema · flight-card</div>
+<div class="fd-route"><span>TLV</span><span class="fd-arrow">→</span><span>BKK</span></div>
+<div class="fd-times"><span>23:55</span><span>15:20 +1</span></div>
+<div class="fd-meta"><span>El Al</span><span>10h 25m</span><span>Nonstop</span></div>
+<div class="fd-price"><em>fastest</em><b>$812</b></div>
+</div>
+</div>
+<div class="fd-composer"><span>Ask anything…</span><u>Send</u></div>
+</div></template><doc-pin ref="fd-card" title="The card carries the layout" anchor="tr">One strong card per reply. No bubble chrome.</doc-pin></doc-mock></div>
+<div data-if="direction=workbench"><doc-mock frame="none" w="470" label="Direction B · Workbench" caption="Reply and live spec sit side by side. The mechanism stays visible."><template><div class="wb">
+<div class="wb-top"><span>GENERATIVE UI</span><b>WORKBENCH</b></div>
+<div class="wb-panes">
+<div class="wb-chat">
+<div class="wb-tag">REPLY · GENERATED TREE</div>
+<div class="wb-h">Portfolio review</div>
+<div class="wb-sub">No catalog component fit, so the agent composed this view.</div>
+<div class="wb-stats">
+<div class="wb-stat"><b>4</b><span>CASE STUDIES</span></div>
+<div class="wb-stat"><b>3:12</b><span>AVG READ</span></div>
+<div class="wb-stat"><b>31%</b><span>BOUNCE</span></div>
+</div>
+<div class="wb-bar"><span>Hero clarity · 6/10</span><i style="--p:60%"></i></div>
+<div class="wb-bar"><span>Mobile nav · 4/10</span><i style="--p:40%"></i></div>
+<div class="wb-bar"><span>CTA visibility · 8/10</span><i style="--p:80%"></i></div>
+</div>
+<div class="wb-json" data-ref="wb-json">
+<div class="wb-tag">SPEC · LIVE</div>
+<pre>{
+  <span class="k">kind</span>: "stack",
+  <span class="k">children</span>: [
+    { <span class="k">kind</span>: "stat",
+      <span class="k">label</span>: "Case studies",
+      <span class="k">value</span>: "4" },
+    { <span class="k">kind</span>: "bar",
+      <span class="k">label</span>: "Hero clarity",
+      <span class="k">value</span>: 6, <span class="k">max</span>: 10 },
+    …
+  ]
+}</pre>
+</div>
+</div>
+</div></template><doc-pin ref="wb-json" title="The tree next to the pixels" anchor="tl">The schema that made this view is always on screen.</doc-pin></doc-mock></div>
+<div data-if="direction=stage"><doc-mock frame="none" w="470" label="Direction C · Stage" caption="The generated view takes the viewport. The chat becomes a rail."><template><div class="sg">
+<div class="sg-crumb"><span>GENERATIVE UI</span><span>COMPOSED ON THE FLY</span></div>
+<div class="sg-hero" data-ref="sg-hero">75<i>%</i></div>
+<div class="sg-sub">RUNS THIS WEEK</div>
+<div class="sg-week"><i class="on">M</i><i class="on">T</i><i>W</i><i class="on">T</i><i class="on">F</i><i>S</i><i>S</i></div>
+<div class="sg-rail" data-ref="sg-rail"><span class="sg-in">Ask anything…</span><span class="sg-go">Send</span></div>
+</div></template><doc-pin ref="sg-hero" title="The view is the hero" anchor="tl">One generated number fills the screen.</doc-pin><doc-pin ref="sg-rail" title="Chat shrinks to a rail" anchor="bl">The prompt stays one tap away, under the view.</doc-pin></doc-mock></div>
+<doc-ask id="ask-direction"><p>Which layout direction does the reply surface take?</p>
+<label><input type="radio" name="direction" value="feed">A · Feed<small>A quiet reading column. Editorial, light, card-first.</small></label>
+<label><input type="radio" name="direction" value="workbench" checked>B · Workbench<small>Reply and live spec side by side. Shows the mechanism.</small></label>
+<label><input type="radio" name="direction" value="stage">C · Stage<small>The view fills the screen. The chat becomes a rail.</small></label></doc-ask>
+<doc-claim><p>Each direction draws the same replies with the same renderer.</p>
+<doc-code src="src/agent/GenerativeRenderer.tsx" lines="6-24" lang="tsx" wrap caption="Current renderer. The directions change the shell around it, not it."></doc-code>
+<doc-claim at="src/agent/GenerativeRenderer.tsx:6"><p><b>src/agent/GenerativeRenderer.tsx:6</b> · GenerativeRenderer()</p><doc-code src="src/agent/GenerativeRenderer.tsx" lines="1-5" lang="tsx" wrap caption="The renderer only knows the primitive vocabulary."></doc-code></doc-claim>
+</doc-claim>
+<doc-claim><p>The reply contract does not change between directions.</p>
+<doc-schema src="src/agent/types.ts" lines="57-63" lang="ts" id="reply-contract" caption="Current type. Every direction must render all three modes."></doc-schema>
+</doc-claim>
+</doc-claim>
+
+<doc-claim id="provenance"><p>The user can tell a catalog card from a generated view.</p>
+<p class="switch-note">Pick an option in <b>decision 2</b> below. This mockup switches to that marking.</p>
+<div data-if="mark=badge"><doc-mock frame="none" w="430" label="Option A · Badge" caption="A pill under each reply names the source. This is the current marker, kept."><template><div class="pm">
+<div class="pm-hd">REPLY</div>
+<div class="pm-bd">
+<div class="pm-card"><div class="pm-route"><span>TLV → BKK</span><span>$812</span></div><div class="pm-meta"><span>El Al</span><span>10h 25m</span><span>Nonstop</span></div></div>
+<div class="pm-foot"><span class="pm-pill">① library component</span><span class="pm-pill g">② generated on the fly</span></div>
+</div>
+</div></template></doc-mock></div>
+<div data-if="mark=spec"><doc-mock frame="none" w="430" label="Option B · Spec line" caption="A mono spec line sits above each reply, like a label on a specimen."><template><div class="pm">
+<div class="pm-spec" data-ref="spec-a"><span>schema <b>flight-card</b> · props 9/9</span><span>catalog</span></div>
+<div class="pm-bd"><div class="pm-card"><div class="pm-route"><span>TLV → BKK</span><span>$812</span></div><div class="pm-meta"><span>El Al</span><span>10h 25m</span><span>Nonstop</span></div></div></div>
+<div class="pm-spec g"><span>tree · nodes 12 · depth 4</span><span><b>model</b></span></div>
+<div class="pm-bd"><div class="pm-card"><div class="pm-route"><span>Portfolio review</span></div><div class="pm-meta"><span>stats</span><span>bars</span><span>actions</span></div></div></div>
+</div></template><doc-pin ref="spec-a" title="Facts, not decoration" anchor="tl">The line states the schema, the fill and the source.</doc-pin></doc-mock></div>
+<div data-if="mark=edge"><doc-mock frame="none" w="430" label="Option C · Edge code" caption="No words. A solid edge means catalog; a dashed frame means generated."><template><div class="pm">
+<div class="pm-hd">TWO REPLIES</div>
+<div class="pm-bd">
+<div class="pm-card pm-edge" data-ref="edge-a"><div class="pm-route"><span>TLV → BKK</span><span>$812</span></div><div class="pm-meta"><span>El Al</span><span>Nonstop</span></div></div>
+<div style="height:10px"></div>
+<div class="pm-card pm-edge g"><div class="pm-route"><span>Habit tracker</span></div><div class="pm-meta"><span>progress</span><span>pills</span></div></div>
+<div class="pm-legend"><span><i>▬</i> solid edge · catalog</span><span><i>▢</i> dashed frame · generated</span></div>
+</div>
+</div></template><doc-pin ref="edge-a" title="Edge is the only signal" anchor="l">Fast to scan. Easy to miss for new users.</doc-pin></doc-mock></div>
+<doc-ask id="ask-mark"><p>How does a reply show who made it?</p>
+<label><input type="radio" name="mark" value="badge">A · Badge<small>A pill under the reply. The current marker, refined.</small></label>
+<label><input type="radio" name="mark" value="spec" checked>B · Spec line<small>A mono line states schema, fill and source above each reply.</small></label>
+<label><input type="radio" name="mark" value="edge">C · Edge code<small>Color and border only. Clean, but must be learned.</small></label></doc-ask>
+<doc-claim><p>Today a colored pill is the only marker.</p>
+<doc-code src="src/styles.css" lines="61-66" lang="css" caption="Current badge and frame rules. The dashed amber frame already marks generated views."></doc-code>
+</doc-claim>
+</doc-claim>
+
+<doc-claim id="failure"><p>The user always lands somewhere when generation fails.</p>
+<doc-machine name="reply" caption="Tap a state to see its screen. The failed screen switches with decision 3."><script type="text/plain">
+machine reply initial ready
+state ready # The composer accepts text.
+state pending # The shell shows a skeleton, not a spinner alone.
+state done final # The reply renders in the chosen direction.
+state failed # Decision 3 picks what the user sees.
+| ready | pending |
+| done | failed |
+ready -send-> pending : Send
+pending -ok-> done : Valid
+pending -error-> failed : Invalid
+failed -retry-> pending : Retry
+</script>
+<div data-state="ready"><doc-mock frame="none" w="360"><template><div class="ms"><div class="ms-hd">Ready</div><div class="ms-bd"><div class="ms-in"><span>Ask anything…</span><b>Send</b></div></div></div></template></doc-mock></div>
+<div data-state="pending"><doc-mock frame="none" w="360"><template><div class="ms"><div class="ms-hd">Pending</div><div class="ms-bd"><div class="ms-skel"><i style="width:42%"></i><i style="width:88%"></i><i style="width:70%"></i><i style="width:55%;margin-bottom:0"></i></div><p style="font:11px/1.5 ui-monospace,Menlo,monospace;color:#7d8f83;margin:10px 0 0">Composing the view…</p></div></div></template></doc-mock></div>
+<div data-state="done"><doc-mock frame="none" w="360"><template><div class="ms"><div class="ms-hd">Done</div><div class="ms-bd"><div class="ms-card"><div class="ms-route"><span>TLV → BKK</span><span>$812</span></div><div class="ms-meta"><span>El Al</span><span>10h 25m</span><span>Nonstop</span></div></div></div></div></template></doc-mock></div>
+<div data-state="failed">
+<div data-if="fallback=retry"><doc-mock frame="none" w="360" label="A · Retry card"><template><div class="ms"><div class="ms-hd">Failed · Retry card</div><div class="ms-bd"><div class="ms-note">We could not build this view. Your prompt is kept.</div><span class="ms-btn" data-ref="fb-retry">Retry</span> <span class="ms-btn ghost">Edit prompt</span></div></div></template><doc-pin ref="fb-retry" title="Nothing is hidden" anchor="tl">The failure stays visible. The user decides.</doc-pin></doc-mock></div>
+<div data-if="fallback=degrade"><doc-mock frame="none" w="360" label="B · Graceful degrade"><template><div class="ms"><div class="ms-hd">Failed · Degrade</div><div class="ms-bd"><div class="ms-note">The composed view failed. Here is the plain answer instead.</div><ul class="ms-list"><li>TLV → BKK, El Al, 23:55 → 15:20 +1</li><li>10h 25m, nonstop</li><li>$812</li></ul><span class="ms-btn ghost" data-ref="fb-deg">Try the view again</span></div></div></template><doc-pin ref="fb-deg" title="The answer survives" anchor="bl">The user keeps the facts and loses the layout.</doc-pin></doc-mock></div>
+<div data-if="fallback=partial"><doc-mock frame="none" w="360" label="C · Partial render"><template><div class="ms"><div class="ms-hd">Failed · Partial render</div><div class="ms-bd"><div class="ms-card"><div class="ms-route"><span>Portfolio review</span></div><div class="ms-meta"><span>stats rendered</span></div><div class="ms-slot" data-ref="fb-part">bar · failed validation</div><div class="ms-slot">button · failed validation</div></div></div></div></template><doc-pin ref="fb-part" title="Valid nodes still render" anchor="br">Bad slots show as marked gaps, not a blank page.</doc-pin></doc-mock></div>
+</div>
+</doc-machine>
+<doc-ask id="ask-fallback"><p>What does the user see when generation fails?</p>
+<label><input type="radio" name="fallback" value="retry" checked>A · Retry card<small>Keep the prompt. Show the failure. Let the user retry.</small></label>
+<label><input type="radio" name="fallback" value="degrade">B · Graceful degrade<small>Fall back to the plain answer, labeled as a fallback.</small></label>
+<label><input type="radio" name="fallback" value="partial">C · Partial render<small>Render the valid nodes. Mark the failed slots.</small></label></doc-ask>
+<doc-claim><p>A retry sends the same prompt again, not a new message.</p>
+<doc-code title="retry · sketch" lang="ts" wrap><script type="text/plain">
+// App keeps the last prompt while state is "failed".
+// Retry reuses it; the chat gets no second user row.
+function retry() {
+  if (state !== 'failed') return
+  send(lastPrompt, { reuseRow: true })
+}
+</script></doc-code>
+</doc-claim>
+</doc-claim>
+
+<doc-claim id="steering"><p>The user can steer the next answer from the result.</p>
+<p class="switch-note">Pick an option in <b>decision 4</b> below. This mockup switches to that steering.</p>
+<div data-if="steer=chips"><doc-mock frame="none" w="430" label="Option A · Prompt chips" caption="A fixed row of prompts under the composer. This is the current steering."><template><div class="sw"><div class="ms-bd">
+<div class="ms-card" style="margin-bottom:12px"><div class="ms-route"><span>TLV → BKK</span><span>$812</span></div><div class="ms-meta"><span>El Al</span><span>Nonstop</span></div></div>
+<span class="sw-chip" data-ref="sw-chip">Find me a flight to Bangkok</span><span class="sw-chip">Weather in Chiang Mai</span><span class="sw-chip">Review my portfolio</span><span class="sw-chip">Track my gym habits</span>
+</div></div></template><doc-pin ref="sw-chip" title="Fixed prompts, not steering" anchor="tl">The chips start new topics. They do not adjust this reply.</doc-pin></doc-mock></div>
+<div data-if="steer=actions"><doc-mock frame="none" w="430" label="Option B · Result actions" caption="Each reply carries the moves that change it."><template><div class="sw"><div class="ms-bd">
+<div class="ms-card"><div class="ms-route"><span>TLV → BKK</span><span>$812</span></div><div class="ms-meta"><span>El Al</span><span>Nonstop</span></div></div>
+<div class="sw-acts" data-ref="sw-acts">
+<span class="sw-act"><b>↻</b>Another variant</span>
+<span class="sw-act"><b>＋</b>Denser</span>
+<span class="sw-act"><b>⇄</b>Compare options</span>
+</div>
+</div></div></template><doc-pin ref="sw-acts" title="Steering on the result" anchor="bl">The next instruction starts from what is on screen.</doc-pin></doc-mock></div>
+<div data-if="steer=spec-edit"><doc-mock frame="none" w="430" label="Option C · Edit the spec" caption="The user edits the props and re-renders. The most direct steering."><template><div class="sw"><div class="ms-bd">
+<div class="ms-json" data-ref="sw-json">{
+  "currency": <span class="ed">"USD"</span>,
+  "stops": <span class="ed">0</span>,
+  "tag": <span class="ed">"fastest"</span>
+}</div>
+<span class="ms-btn">Re-render</span> <span class="ms-btn ghost">Reset</span>
+</div></div></template><doc-pin ref="sw-json" title="The props become the controls" anchor="tl">Powerful for a demo. Needs validation per edit.</doc-pin></doc-mock></div>
+<doc-ask id="ask-steer"><p>How does the user steer the next reply?</p>
+<label><input type="radio" name="steer" value="chips">A · Prompt chips<small>A fixed row of topic starters. The current behavior.</small></label>
+<label><input type="radio" name="steer" value="actions" checked>B · Result actions<small>Variant, density and compare buttons on each reply.</small></label>
+<label><input type="radio" name="steer" value="spec-edit">C · Edit the spec<small>The user edits the props JSON and re-renders.</small></label></doc-ask>
+<doc-claim><p>A fixed chip row is the only steering today.</p>
+<doc-code src="src/App.tsx" lines="92-94" lang="tsx" wrap caption="The chips send new prompts. The list is fixed at src/App.tsx:11-24."></doc-code>
+</doc-claim>
+</doc-claim>
+
+<doc-claim aux="shared"><p>One token set drives every direction.</p>
+<doc-schema id="tokens" lang="css" title="tokens.css · sketch" caption="Each direction re-skins the same tokens. It does not fork the components."><script type="text/plain">
+:root {
+  /* type */
+  --font-display: 800 clamp(40px, 8vw, 104px)/0.95 system-ui;
+  --font-spec: 11px ui-monospace, monospace;
+  /* surface */
+  --paper: #f7f2e9;   /* Feed    */
+  --ink: #221d15;
+  --studio: #0e120e;  /* Workbench */
+  --stage-bg: #131108; /* Stage   */
+  /* source code: catalog vs generated */
+  --catalog: #d8f26e;
+  --generated: #f2b26e;
+  --radius-card: 12px;
+}
+</script></doc-schema>
+</doc-claim>
+<doc-claim aux="scope"><p>This page is a design plan, not an implementation.</p><ul>
+<li>No changes to the existing project, its branches or its deployment.</li>
+<li>The 36-component catalog, the renderer and the mock agent stay as they are.</li>
+<li>No model account, paid call, API key or live data source.</li>
+<li>The picked directions still need responsive rules for 320px and 390px before a build.</li>
+<li>Edge code (option C of decision 2) must also pass a color-only accessibility check.</li>
+</ul></doc-claim>
+</doc-plan></main>
+<footer><p>Design plan prepared 19 October 2026. Grounded in <a href="https://github.com/Itamar-Dev01/generative-ui-demo/pull/1">generative-ui-demo PR #1</a>, commit <code>bbdb2dd</code>. The PR is still open.</p><p>Format and runtime: <a href="https://github.com/anthropics/claude-plugins-community">html-plan by Thariq Shihipar</a>. This is an independent example, not an Anthropic product.</p><p>Only public project code appears here. No private conversations or secrets.</p></footer>
+</body></html>

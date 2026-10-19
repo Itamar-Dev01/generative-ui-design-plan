@@ -37,3 +37,5 @@ Runtime copied from the `html-plan` plugin at https://github.com/anthropics/clau
 ## Live example
 
 https://generative-ui-design-plan.vercel.app/
+
+Verified at 1440px, 390px and 320px. Picking an option switches the mockup in place, including the failed-state screen inside the state machine. The Respond sheet exports the picked directions as a structured brief. No page errors or horizontal page overflow were found.

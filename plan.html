@@ -239,7 +239,7 @@ state pending # The shell shows a skeleton, not a spinner alone.
 state done final # The reply renders in the chosen direction.
 state failed # Decision 3 picks what the user sees.
 | ready | pending |
-| done | failed |
+| failed | done |
 ready -send-> pending : Send
 pending -ok-> done : Valid
 pending -error-> failed : Invalid
